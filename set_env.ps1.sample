@@ -1,0 +1,4 @@
+$env:LOOKER_HOST_URL = "https://example.cloud.looker.com"
+$env:LOOKER_HOST_PORT = 19999
+$env:LOOKER_API_KEY_CLIENT_ID = ""
+$env:LOOKER_API_KEY_CLIENT_SECRET = ""
