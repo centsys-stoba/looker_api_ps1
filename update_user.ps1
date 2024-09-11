@@ -2,6 +2,7 @@ Param(
     [string]$HostUrl,
     [int]$Port = 19999,
     [string]$ApiToken,
+    [int]$UserId,
     [string]$Email,
     [string]$FirstName,
     [string]$LastName,
@@ -9,7 +10,7 @@ Param(
     [int[]]$RoleIds = @()
 )
 
-$uri = $HostUrl + ":" + $Port + "/api/4.0/users"
+$uri = $HostUrl + ":" + $Port + "/api/4.0/users/" + $UserId
 $headers = @{
     "Content-Type" = "application/json"
     "Authorization" = "token $ApiToken"
@@ -21,5 +22,5 @@ $body = @{
     group_ids = "[" + $($GroupIds -join ",") + "]"
     role_ids = "[" + $($RoleIds -join ",") + "]"
 } | ConvertTo-Json
-$response = Invoke-RestMethod -Method Post -Headers $headers -Body $body -Uri $uri
+$response = Invoke-RestMethod -Method Patch -Headers $headers -Body $body -Uri $uri
 $response

@@ -1,8 +1,14 @@
-$uri = $env:LOOKER_HOST_URL + "/api/4.0/login"
+Param(
+    [string]$HostUrl,
+    [int]$Port = 19999,
+    [string]$ApiKeyClientKey,
+    [string]$ApiKeyClientSecret
+)
+
+$uri = $HostUrl + ":" + $Port + "/api/4.0/login"
 $headers = @{
     "Content-Type" = "application/x-www-form-urlencoded"
 }
-$body = "client_id=$($env:LOOKER_API_KEY_CLIENT_ID)&client_secret=$($env:LOOKER_API_KEY_CLIENT_SECRET)"
+$body = "client_id=$ApiKeyClientKey&client_secret=$ApiKeyClientSecret"
 $response = Invoke-RestMethod -Method Post -Headers $headers -Body $body -Uri $uri
-$response
-$env:LOOKER_TEMPORARY_ACCESS_TOKEN = $response.access_token
+$response.access_token
